@@ -1,5 +1,6 @@
 'use client'
 
+// NewHeart Login Page - Email Magic Link Authentication
 import { useState } from 'react'
 import { signInWithEmail } from '@/actions/auth'
 import { Button } from '@/components/ui/button'
