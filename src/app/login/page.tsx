@@ -1,34 +1,35 @@
 'use client'
 
-// NewHeart Login Page - Email Magic Link Authentication
+// NewHeart Login Page - Email/Password Authentication
 import { useState } from 'react'
-import { signInWithEmail } from '@/actions/auth'
+import { signInWithPassword } from '@/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Mail } from 'lucide-react'
+import { LogIn } from 'lucide-react'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
-    setMessage(null)
+    setError(null)
 
     const formData = new FormData(e.currentTarget)
-    const result = await signInWithEmail(formData)
+
+    try {
+      const result = await signInWithPassword(formData)
+      if (result?.error) {
+        setError(result.error)
+      }
+    } catch (err) {
+      // redirect가 발생하면 여기로 오지 않음
+    }
 
     setLoading(false)
-
-    if (result.error) {
-      setMessage({ type: 'error', text: result.error })
-    } else if (result.success) {
-      setMessage({ type: 'success', text: result.message || '이메일을 확인해주세요.' })
-    }
   }
 
   return (
@@ -48,36 +49,35 @@ export default function LoginPage() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@newheart.com"
+                required
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password">비밀번호</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
                 required
                 disabled={loading}
               />
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
-              <Mail className="mr-2 h-4 w-4" />
-              {loading ? '전송 중...' : '로그인 링크 받기'}
+              <LogIn className="mr-2 h-4 w-4" />
+              {loading ? '로그인 중...' : '로그인'}
             </Button>
 
-            {message && (
-              <div
-                className={`p-3 rounded-md text-sm ${
-                  message.type === 'success'
-                    ? 'bg-green-500/10 text-green-500 border border-green-500/20'
-                    : 'bg-red-500/10 text-red-500 border border-red-500/20'
-                }`}
-              >
-                {message.text}
+            {error && (
+              <div className="p-3 rounded-md text-sm bg-red-500/10 text-red-500 border border-red-500/20">
+                {error}
               </div>
             )}
           </form>
-
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            이메일로 매직 링크를 전송합니다.<br />
-            이메일에서 링크를 클릭하면 자동으로 로그인됩니다.
-          </p>
         </CardContent>
       </Card>
     </div>
