@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { ArrowLeft, LayoutDashboard, FileText, CheckSquare, ListTodo, Calendar, TrendingUp } from 'lucide-react'
+import { ArrowLeft, LayoutDashboard, FileText, CheckSquare, ListTodo, Calendar, TrendingUp, Users, Clock } from 'lucide-react'
 
 export default async function ProjectLayout({
   children,
@@ -20,6 +20,8 @@ export default async function ProjectLayout({
 
   const navItems = [
     { href: `/p/${params.projectId}`, label: '대시보드', icon: LayoutDashboard },
+    { href: `/p/${params.projectId}/workers`, label: '인력관리', icon: Users },
+    { href: `/p/${params.projectId}/attendance`, label: '출퇴근', icon: Clock },
     { href: `/p/${params.projectId}/logs`, label: '현장일지', icon: FileText },
     { href: `/p/${params.projectId}/tasks`, label: '작업내용', icon: CheckSquare },
     { href: `/p/${params.projectId}/todos`, label: '관리업무', icon: ListTodo },
