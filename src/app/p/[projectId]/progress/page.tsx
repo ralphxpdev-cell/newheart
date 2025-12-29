@@ -1,8 +1,10 @@
 import { getRoomProgress } from '@/actions/progress'
+import { getRoomPhotos } from '@/actions/photos'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { TrendingUp } from 'lucide-react'
 import ProgressForm from '@/components/progress/progress-form'
+import PhotoGallery from '@/components/progress/photo-gallery'
 
 const PROCESS_FIELDS = [
   { key: 'demolition', label: '철거' },
@@ -29,6 +31,17 @@ function calculateOverallProgress(progress: any): number {
 export default async function ProgressPage({ params }: { params: { projectId: string } }) {
   const progressList = await getRoomProgress(params.projectId)
 
+  // 각 progress에 대한 사진 가져오기
+  const progressWithPhotos = await Promise.all(
+    progressList.map(async (progress) => {
+      const photosResult = await getRoomPhotos(progress.id)
+      return {
+        ...progress,
+        photos: photosResult.data || [],
+      }
+    })
+  )
+
   return (
     <div className="space-y-6">
       {/* Quick Add */}
@@ -40,14 +53,14 @@ export default async function ProgressPage({ params }: { params: { projectId: st
       {/* Progress List */}
       <div>
         <h3 className="text-lg font-semibold mb-4">공간별 진행률</h3>
-        {progressList.length === 0 ? (
+        {progressWithPhotos.length === 0 ? (
           <Card className="p-12 text-center">
             <TrendingUp className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <p className="text-muted-foreground">등록된 공간이 없습니다.</p>
           </Card>
         ) : (
           <div className="space-y-4">
-            {progressList.map((progress) => {
+            {progressWithPhotos.map((progress) => {
               const overallProgress = calculateOverallProgress(progress)
 
               return (
@@ -93,6 +106,13 @@ export default async function ProgressPage({ params }: { params: { projectId: st
                       </p>
                     </div>
                   )}
+
+                  {/* Photo Gallery */}
+                  <PhotoGallery
+                    projectId={params.projectId}
+                    progressId={progress.id}
+                    photos={progress.photos}
+                  />
                 </Card>
               )
             })}
@@ -101,27 +121,27 @@ export default async function ProgressPage({ params }: { params: { projectId: st
       </div>
 
       {/* Summary Stats */}
-      {progressList.length > 0 && (
+      {progressWithPhotos.length > 0 && (
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">전체 요약</h3>
           <div className="grid gap-4 md:grid-cols-3">
             <div>
               <p className="text-sm text-muted-foreground mb-1">등록된 공간</p>
-              <p className="text-2xl font-bold">{progressList.length}개</p>
+              <p className="text-2xl font-bold">{progressWithPhotos.length}개</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-1">평균 진행률</p>
               <p className="text-2xl font-bold">
                 {Math.round(
-                  progressList.reduce((sum, p) => sum + calculateOverallProgress(p), 0) /
-                    progressList.length
+                  progressWithPhotos.reduce((sum, p) => sum + calculateOverallProgress(p), 0) /
+                    progressWithPhotos.length
                 )}%
               </p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-1">완료된 공간</p>
               <p className="text-2xl font-bold">
-                {progressList.filter(p => calculateOverallProgress(p) === 100).length}개
+                {progressWithPhotos.filter(p => calculateOverallProgress(p) === 100).length}개
               </p>
             </div>
           </div>

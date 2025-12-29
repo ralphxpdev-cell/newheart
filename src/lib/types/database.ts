@@ -32,6 +32,114 @@ export interface Database {
           owner_id?: string
         }
       }
+      workers: {
+        Row: {
+          id: string
+          name: string
+          role: string
+          phone: string | null
+          team: string | null
+          status: 'active' | 'inactive'
+          hourly_rate: number | null
+          daily_rate: number | null
+          notes: string | null
+          created_at: string
+          owner_id: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          role: string
+          phone?: string | null
+          team?: string | null
+          status?: 'active' | 'inactive'
+          hourly_rate?: number | null
+          daily_rate?: number | null
+          notes?: string | null
+          created_at?: string
+          owner_id: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          role?: string
+          phone?: string | null
+          team?: string | null
+          status?: 'active' | 'inactive'
+          hourly_rate?: number | null
+          daily_rate?: number | null
+          notes?: string | null
+          created_at?: string
+          owner_id?: string
+        }
+      }
+      attendance: {
+        Row: {
+          id: string
+          project_id: string
+          worker_id: string
+          work_date: string
+          check_in: string | null
+          check_out: string | null
+          work_hours: number | null
+          overtime_hours: number | null
+          status: 'present' | 'absent' | 'half_day' | 'leave'
+          notes: string | null
+          created_at: string
+          owner_id: string
+        }
+        Insert: {
+          id?: string
+          project_id: string
+          worker_id: string
+          work_date?: string
+          check_in?: string | null
+          check_out?: string | null
+          work_hours?: number | null
+          overtime_hours?: number | null
+          status?: 'present' | 'absent' | 'half_day' | 'leave'
+          notes?: string | null
+          created_at?: string
+          owner_id: string
+        }
+        Update: {
+          id?: string
+          project_id?: string
+          worker_id?: string
+          work_date?: string
+          check_in?: string | null
+          check_out?: string | null
+          work_hours?: number | null
+          overtime_hours?: number | null
+          status?: 'present' | 'absent' | 'half_day' | 'leave'
+          notes?: string | null
+          created_at?: string
+          owner_id?: string
+        }
+      }
+      task_workers: {
+        Row: {
+          id: string
+          task_id: string
+          worker_id: string
+          assigned_at: string
+          owner_id: string
+        }
+        Insert: {
+          id?: string
+          task_id: string
+          worker_id: string
+          assigned_at?: string
+          owner_id: string
+        }
+        Update: {
+          id?: string
+          task_id?: string
+          worker_id?: string
+          assigned_at?: string
+          owner_id?: string
+        }
+      }
       daily_logs: {
         Row: {
           id: string
@@ -45,6 +153,9 @@ export interface Database {
           follow_up_needed: boolean
           follow_up_summary: string | null
           content: string | null
+          worker_count: number | null
+          weather_detail: string | null
+          work_hours: number | null
           created_at: string
           owner_id: string
         }
@@ -60,6 +171,9 @@ export interface Database {
           follow_up_needed?: boolean
           follow_up_summary?: string | null
           content?: string | null
+          worker_count?: number | null
+          weather_detail?: string | null
+          work_hours?: number | null
           created_at?: string
           owner_id: string
         }
@@ -75,6 +189,9 @@ export interface Database {
           follow_up_needed?: boolean
           follow_up_summary?: string | null
           content?: string | null
+          worker_count?: number | null
+          weather_detail?: string | null
+          work_hours?: number | null
           created_at?: string
           owner_id?: string
         }
@@ -91,6 +208,9 @@ export interface Database {
           spaces: string[]
           description: string | null
           related_log_id: string | null
+          estimated_hours: number | null
+          actual_hours: number | null
+          assigned_workers: string[]
           created_at: string
           owner_id: string
         }
@@ -105,6 +225,9 @@ export interface Database {
           spaces?: string[]
           description?: string | null
           related_log_id?: string | null
+          estimated_hours?: number | null
+          actual_hours?: number | null
+          assigned_workers?: string[]
           created_at?: string
           owner_id: string
         }
@@ -119,6 +242,9 @@ export interface Database {
           spaces?: string[]
           description?: string | null
           related_log_id?: string | null
+          estimated_hours?: number | null
+          actual_hours?: number | null
+          assigned_workers?: string[]
           created_at?: string
           owner_id?: string
         }
@@ -139,6 +265,8 @@ export interface Database {
           memo: string | null
           related_task_id: string | null
           related_log_id: string | null
+          actual_assignee: string | null
+          completed_at: string | null
           owner_id: string
         }
         Insert: {
@@ -156,6 +284,8 @@ export interface Database {
           memo?: string | null
           related_task_id?: string | null
           related_log_id?: string | null
+          actual_assignee?: string | null
+          completed_at?: string | null
           owner_id: string
         }
         Update: {
@@ -173,6 +303,8 @@ export interface Database {
           memo?: string | null
           related_task_id?: string | null
           related_log_id?: string | null
+          actual_assignee?: string | null
+          completed_at?: string | null
           owner_id?: string
         }
       }
