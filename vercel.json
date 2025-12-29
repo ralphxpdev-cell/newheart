@@ -1,4 +1,9 @@
 {
   "buildCommand": "npm run build",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "git": {
+    "deploymentEnabled": {
+      "claude/mvp-webapp-setup-vbIvQ": true
+    }
+  }
 }
