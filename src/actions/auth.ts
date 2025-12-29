@@ -15,7 +15,7 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   // Get origin dynamically from request headers
-  const headersList = headers()
+  const headersList = await headers()
   const origin = headersList.get('origin') || headersList.get('referer')?.split('/').slice(0, 3).join('/') || 'http://localhost:3000'
 
   const { error } = await supabase.auth.signInWithOtp({
