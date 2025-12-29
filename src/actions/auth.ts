@@ -3,7 +3,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { headers } from 'next/headers'
 
 export async function signInWithEmail(formData: FormData) {
   const supabase = await createClient()
@@ -14,14 +13,10 @@ export async function signInWithEmail(formData: FormData) {
     return { error: 'Email is required' }
   }
 
-  // Get origin dynamically from request headers
-  const headersList = await headers()
-  const origin = headersList.get('origin') || headersList.get('referer')?.split('/').slice(0, 3).join('/') || 'http://localhost:3000'
-
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${origin}/auth/callback`,
+      emailRedirectTo: 'https://newheart.vercel.app/auth/callback',
     },
   })
 
