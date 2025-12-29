@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'NewHeart - 현장 프로젝트 관리',
-  description: '현장 프로젝트를 효율적으로 관리하는 MVP 웹앱',
+  title: '새마음건축 - 현장 프로젝트 관리',
+  description: '새마음건축 현장 프로젝트 관리 시스템',
 }
 
 export default function RootLayout({
