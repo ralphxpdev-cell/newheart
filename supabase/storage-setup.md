@@ -5,7 +5,7 @@
 Supabase Dashboard > Storage로 이동하여 아래 버킷을 생성하세요:
 
 ### 버킷 이름: `room-photos`
-- **Public**: No (비공개)
+- **Public**: Yes (공개) ✅
 - **File size limit**: 5MB
 - **Allowed MIME types**: image/jpeg, image/png, image/webp, image/heic
 
@@ -17,9 +17,9 @@ Storage 버킷에 대한 RLS 정책을 설정합니다.
 
 Supabase Dashboard > Storage > room-photos > Policies로 이동하여 아래 정책들을 추가하세요:
 
-### 정책 1: 소유자만 업로드 가능
+### 정책 1: 인증된 사용자만 업로드 가능
 ```sql
-CREATE POLICY "Users can upload own photos"
+CREATE POLICY "Authenticated users can upload photos"
 ON storage.objects FOR INSERT
 TO authenticated
 WITH CHECK (
@@ -28,15 +28,12 @@ WITH CHECK (
 );
 ```
 
-### 정책 2: 소유자만 조회 가능
+### 정책 2: 누구나 조회 가능 (공개)
 ```sql
-CREATE POLICY "Users can view own photos"
+CREATE POLICY "Anyone can view photos"
 ON storage.objects FOR SELECT
-TO authenticated
-USING (
-  bucket_id = 'room-photos'
-  AND auth.uid()::text = (storage.foldername(name))[1]
-);
+TO public
+USING (bucket_id = 'room-photos');
 ```
 
 ### 정책 3: 소유자만 삭제 가능
@@ -76,6 +73,6 @@ room-photos/550e8400-e29b-41d4-a716-446655440000/abc123/201/1704067200000-photo.
 1. ✅ 버킷 `room-photos` 생성 완료
 2. ✅ 3개의 RLS 정책 적용 완료
 3. ✅ File size limit 5MB 설정 완료
-4. ✅ Public access는 OFF (비공개)
+4. ✅ Public access는 ON (공개) - 누구나 사진 조회 가능
 
 완료!
