@@ -1,15 +1,25 @@
 import { getTasks } from '@/actions/tasks'
+import { getTaskPhotos } from '@/actions/task-photos'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CheckSquare } from 'lucide-react'
 import TaskForm from '@/components/tasks/task-form'
+import TaskPhotoGallery from '@/components/tasks/task-photo-gallery'
 
 export default async function TasksPage({ params }: { params: { projectId: string } }) {
   const tasks = await getTasks(params.projectId)
 
-  const todoTasks = tasks.filter(t => t.status === 'todo')
-  const doingTasks = tasks.filter(t => t.status === 'doing')
-  const doneTasks = tasks.filter(t => t.status === 'done')
+  // Fetch photos for each task
+  const tasksWithPhotos = await Promise.all(
+    tasks.map(async (task) => {
+      const photosResult = await getTaskPhotos(task.id)
+      return { ...task, photos: photosResult.data || [] }
+    })
+  )
+
+  const todoTasks = tasksWithPhotos.filter(t => t.status === 'todo')
+  const doingTasks = tasksWithPhotos.filter(t => t.status === 'doing')
+  const doneTasks = tasksWithPhotos.filter(t => t.status === 'done')
 
   return (
     <div className="space-y-6">
@@ -58,6 +68,11 @@ export default async function TasksPage({ params }: { params: { projectId: strin
                         </p>
                       )}
                     </div>
+                    <TaskPhotoGallery
+                      projectId={params.projectId}
+                      taskId={task.id}
+                      photos={task.photos}
+                    />
                   </Card>
                 ))
               )}
@@ -99,6 +114,11 @@ export default async function TasksPage({ params }: { params: { projectId: strin
                         </p>
                       )}
                     </div>
+                    <TaskPhotoGallery
+                      projectId={params.projectId}
+                      taskId={task.id}
+                      photos={task.photos}
+                    />
                   </Card>
                 ))
               )}
@@ -130,6 +150,11 @@ export default async function TasksPage({ params }: { params: { projectId: strin
                         <p className="text-xs text-muted-foreground">{task.team}</p>
                       )}
                     </div>
+                    <TaskPhotoGallery
+                      projectId={params.projectId}
+                      taskId={task.id}
+                      photos={task.photos}
+                    />
                   </Card>
                 ))
               )}

@@ -405,6 +405,58 @@ export interface Database {
           owner_id?: string
         }
       }
+      daily_log_photos: {
+        Row: {
+          id: string
+          daily_log_id: string
+          storage_path: string
+          caption: string | null
+          created_at: string
+          owner_id: string
+        }
+        Insert: {
+          id?: string
+          daily_log_id: string
+          storage_path: string
+          caption?: string | null
+          created_at?: string
+          owner_id: string
+        }
+        Update: {
+          id?: string
+          daily_log_id?: string
+          storage_path?: string
+          caption?: string | null
+          created_at?: string
+          owner_id?: string
+        }
+      }
+      task_photos: {
+        Row: {
+          id: string
+          task_id: string
+          storage_path: string
+          caption: string | null
+          created_at: string
+          owner_id: string
+        }
+        Insert: {
+          id?: string
+          task_id: string
+          storage_path: string
+          caption?: string | null
+          created_at?: string
+          owner_id: string
+        }
+        Update: {
+          id?: string
+          task_id?: string
+          storage_path?: string
+          caption?: string | null
+          created_at?: string
+          owner_id?: string
+        }
+      }
     }
   }
 }
