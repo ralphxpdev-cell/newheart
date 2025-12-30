@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { Camera } from 'lucide-react'
 import {
   Select,
   SelectContent,
@@ -13,15 +14,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import FileUpload from '@/components/ui/file-upload'
 
 export default function TaskForm({ projectId }: { projectId: string }) {
   const [loading, setLoading] = useState(false)
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
 
     const formData = new FormData(e.currentTarget)
+
+    // Add all selected files
+    selectedFiles.forEach((file) => {
+      formData.append('photos', file)
+    })
+
     const result = await createTask(projectId, formData)
 
     setLoading(false)
@@ -30,19 +39,34 @@ export default function TaskForm({ projectId }: { projectId: string }) {
       alert(result.error)
     } else {
       e.currentTarget.reset()
+      setSelectedFiles([])
+      window.location.reload()
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="title">작업명</Label>
-          <Input id="title" name="title" placeholder="예: 전객실 벽지 시공" required disabled={loading} />
+          <Label htmlFor="title">작업명 *</Label>
+          <Input
+            id="title"
+            name="title"
+            placeholder="예: 전객실 벽지 시공"
+            required
+            disabled={loading}
+            className="h-11"
+          />
         </div>
         <div className="space-y-2">
           <Label htmlFor="team">담당 팀</Label>
-          <Input id="team" name="team" placeholder="예: 목공팀" disabled={loading} />
+          <Input
+            id="team"
+            name="team"
+            placeholder="예: 목공팀"
+            disabled={loading}
+            className="h-11"
+          />
         </div>
       </div>
 
@@ -50,7 +74,7 @@ export default function TaskForm({ projectId }: { projectId: string }) {
         <div className="space-y-2">
           <Label htmlFor="contract_type">계약 구분</Label>
           <Select name="contract_type" defaultValue="contract" disabled={loading}>
-            <SelectTrigger>
+            <SelectTrigger className="h-11">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -62,7 +86,7 @@ export default function TaskForm({ projectId }: { projectId: string }) {
         <div className="space-y-2">
           <Label htmlFor="status">상태</Label>
           <Select name="status" defaultValue="todo" disabled={loading}>
-            <SelectTrigger>
+            <SelectTrigger className="h-11">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -74,36 +98,75 @@ export default function TaskForm({ projectId }: { projectId: string }) {
         </div>
         <div className="space-y-2">
           <Label htmlFor="due_date">마감일</Label>
-          <Input id="due_date" name="due_date" type="date" disabled={loading} />
+          <Input
+            id="due_date"
+            name="due_date"
+            type="date"
+            disabled={loading}
+            className="h-11"
+          />
         </div>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="spaces">작업 공간 (쉼표로 구분)</Label>
-        <Input id="spaces" name="spaces" placeholder="전객실, 로비, 201" disabled={loading} />
+        <Input
+          id="spaces"
+          name="spaces"
+          placeholder="전객실, 로비, 201"
+          disabled={loading}
+          className="h-11"
+        />
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="description">설명</Label>
-        <Textarea id="description" name="description" placeholder="작업 상세 내용..." rows={3} disabled={loading} />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="photos">사진 첨부 (여러 장 가능)</Label>
-        <Input
-          id="photos"
-          name="photos"
-          type="file"
-          accept="image/*"
-          multiple
+        <Textarea
+          id="description"
+          name="description"
+          placeholder="작업 상세 내용..."
+          rows={3}
           disabled={loading}
+          className="resize-none"
         />
-        <p className="text-xs text-muted-foreground">작업 사진을 첨부하세요 (여러 장 선택 가능)</p>
       </div>
 
-      <Button type="submit" disabled={loading}>
-        {loading ? '저장 중...' : '저장'}
-      </Button>
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Camera className="h-5 w-5 text-primary" />
+          <Label className="text-base font-semibold">작업 사진</Label>
+        </div>
+        <FileUpload
+          onFilesChange={setSelectedFiles}
+          disabled={loading}
+          maxFiles={10}
+        />
+      </div>
+
+      <div className="flex gap-3 pt-4">
+        <Button
+          type="submit"
+          disabled={loading}
+          className="h-11 px-8"
+          size="lg"
+        >
+          {loading ? '저장 중...' : '저장하기'}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => {
+            const form = document.querySelector('form')
+            if (form) form.reset()
+            setSelectedFiles([])
+          }}
+          disabled={loading}
+          className="h-11"
+          size="lg"
+        >
+          초기화
+        </Button>
+      </div>
     </form>
   )
 }
