@@ -89,6 +89,38 @@ export async function createTask(projectId: string, formData: FormData) {
     return { error: error.message }
   }
 
+  // Handle photo uploads
+  const photos = formData.getAll('photos') as File[]
+  if (photos && photos.length > 0) {
+    for (const photo of photos) {
+      if (photo.size > 0) {  // Check if file is not empty
+        const timestamp = Date.now()
+        const fileExt = photo.name.split('.').pop()
+        const fileName = `${user.id}/${projectId}/tasks/${data.id}/${timestamp}-${Math.random().toString(36).substring(7)}.${fileExt}`
+
+        // Upload to storage
+        const { error: uploadError } = await supabase.storage
+          .from('room-photos')
+          .upload(fileName, photo, {
+            cacheControl: '3600',
+            upsert: false,
+          })
+
+        if (uploadError) {
+          console.error('Photo upload error:', uploadError)
+          continue  // Skip this photo but continue with others
+        }
+
+        // Save to DB
+        await supabase.from('task_photos').insert({
+          task_id: data.id,
+          storage_path: fileName,
+          owner_id: user.id,
+        })
+      }
+    }
+  }
+
   revalidatePath(`/p/${projectId}/tasks`)
   revalidatePath(`/p/${projectId}`)
   return { data }

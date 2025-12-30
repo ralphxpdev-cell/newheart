@@ -88,6 +88,19 @@ export default function TaskForm({ projectId }: { projectId: string }) {
         <Textarea id="description" name="description" placeholder="작업 상세 내용..." rows={3} disabled={loading} />
       </div>
 
+      <div className="space-y-2">
+        <Label htmlFor="photos">사진 첨부 (여러 장 가능)</Label>
+        <Input
+          id="photos"
+          name="photos"
+          type="file"
+          accept="image/*"
+          multiple
+          disabled={loading}
+        />
+        <p className="text-xs text-muted-foreground">작업 사진을 첨부하세요 (여러 장 선택 가능)</p>
+      </div>
+
       <Button type="submit" disabled={loading}>
         {loading ? '저장 중...' : '저장'}
       </Button>
