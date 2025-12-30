@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
-import { ArrowLeft, LayoutDashboard, FileText, CheckSquare, ListTodo, Calendar, TrendingUp, Users, Clock } from 'lucide-react'
+import { ArrowLeft, LayoutDashboard, FileText, CheckSquare, ListTodo, Calendar, TrendingUp, Users, Clock, MessageCircle } from 'lucide-react'
 
 export default async function ProjectLayout({
   children,
@@ -21,6 +21,7 @@ export default async function ProjectLayout({
 
   const navItems = [
     { href: `/p/${params.projectId}`, label: '대시보드', icon: LayoutDashboard },
+    { href: `/p/${params.projectId}/chat`, label: 'AI 어시스턴트', icon: MessageCircle },
     { href: `/p/${params.projectId}/workers`, label: '인력관리', icon: Users },
     { href: `/p/${params.projectId}/attendance`, label: '출퇴근', icon: Clock },
     { href: `/p/${params.projectId}/logs`, label: '현장일지', icon: FileText },
