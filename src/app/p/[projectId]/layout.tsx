@@ -31,7 +31,7 @@ export default async function ProjectLayout({
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-slate-50">
       <div className="max-w-7xl mx-auto p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -42,7 +42,7 @@ export default async function ProjectLayout({
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">{project.name}</h1>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900">{project.name}</h1>
               <div className="flex items-center gap-2 mt-1">
                 <Badge
                   variant={
@@ -65,7 +65,7 @@ export default async function ProjectLayout({
         </div>
 
         {/* Navigation */}
-        <Card className="border-none shadow-md bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm">
+        <Card className="border-none shadow-sm bg-white">
           <nav className="flex gap-1 p-2 overflow-x-auto">
             {navItems.map((item) => {
               const Icon = item.icon
@@ -73,7 +73,7 @@ export default async function ProjectLayout({
                 <Link key={item.href} href={item.href}>
                   <Button
                     variant="ghost"
-                    className="whitespace-nowrap h-10 px-4 hover:bg-primary/10 transition-colors"
+                    className="whitespace-nowrap h-10 px-4 hover:bg-slate-100 transition-colors"
                   >
                     <Icon className="mr-2 h-4 w-4" />
                     {item.label}

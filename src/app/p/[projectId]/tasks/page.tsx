@@ -30,11 +30,11 @@ export default async function TasksPage({ params }: { params: { projectId: strin
       </div>
 
       {/* Quick Add Section */}
-      <Card className="border-none shadow-lg bg-gradient-to-br from-violet-50 to-purple-100 dark:from-violet-950 dark:to-purple-900">
+      <Card className="border-none shadow-lg bg-gradient-to-br from-violet-50 to-purple-100">
         <CardContent className="p-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-violet-500/20 rounded-xl">
-              <PlusCircle className="h-6 w-6 text-violet-600 dark:text-violet-400" />
+              <PlusCircle className="h-6 w-6 text-violet-600" />
             </div>
             <h3 className="text-xl font-bold">새 작업 추가</h3>
           </div>
@@ -54,9 +54,9 @@ export default async function TasksPage({ params }: { params: { projectId: strin
         <div className="grid gap-6 md:grid-cols-3">
           {/* TODO Column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 rounded-xl shadow-md border-none">
+            <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl shadow-md border-none">
               <div className="p-2 bg-slate-500/20 rounded-lg">
-                <Circle className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+                <Circle className="h-5 w-5 text-slate-600" />
               </div>
               <div>
                 <h4 className="font-bold text-lg">대기</h4>
@@ -126,9 +126,9 @@ export default async function TasksPage({ params }: { params: { projectId: strin
 
           {/* DOING Column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 rounded-xl shadow-md border-none">
+            <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-md border-none">
               <div className="p-2 bg-blue-500/20 rounded-lg">
-                <Clock className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                <Clock className="h-5 w-5 text-blue-600" />
               </div>
               <div>
                 <h4 className="font-bold text-lg">진행중</h4>
@@ -198,9 +198,9 @@ export default async function TasksPage({ params }: { params: { projectId: strin
 
           {/* DONE Column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-950 dark:to-emerald-900 rounded-xl shadow-md border-none">
+            <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl shadow-md border-none">
               <div className="p-2 bg-green-500/20 rounded-lg">
-                <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
+                <CheckCircle2 className="h-5 w-5 text-green-600" />
               </div>
               <div>
                 <h4 className="font-bold text-lg">완료</h4>

@@ -26,11 +26,11 @@ export default async function LogsPage({ params }: { params: { projectId: string
       </div>
 
       {/* Quick Add Section */}
-      <Card className="border-none shadow-lg bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
+      <Card className="border-none shadow-lg bg-gradient-to-br from-slate-50 to-slate-100">
         <CardContent className="p-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-slate-500/20 rounded-xl">
-              <PlusCircle className="h-6 w-6 text-slate-600 dark:text-slate-400" />
+              <PlusCircle className="h-6 w-6 text-slate-600" />
             </div>
             <h3 className="text-xl font-bold">새 일지 작성</h3>
           </div>
@@ -133,12 +133,12 @@ export default async function LogsPage({ params }: { params: { projectId: string
 
                   {/* Follow-up */}
                   {log.follow_up_needed && log.follow_up_summary && (
-                    <div className="mb-4 p-4 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 border border-orange-200 dark:border-orange-800 rounded-lg">
+                    <div className="mb-4 p-4 bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
-                        <AlertCircle className="h-4 w-4 text-orange-600 dark:text-orange-400" />
-                        <p className="text-sm font-semibold text-orange-600 dark:text-orange-400">팔로우업 내용</p>
+                        <AlertCircle className="h-4 w-4 text-orange-600" />
+                        <p className="text-sm font-semibold text-orange-600">팔로우업 내용</p>
                       </div>
-                      <p className="text-sm text-orange-700 dark:text-orange-300">{log.follow_up_summary}</p>
+                      <p className="text-sm text-orange-700">{log.follow_up_summary}</p>
                     </div>
                   )}
 

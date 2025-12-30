@@ -49,81 +49,81 @@ export default async function ProjectDashboard({ params }: { params: { projectId
 
       {/* Main Stats */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
+        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-blue-700 dark:text-blue-300">오늘 출근</p>
+                <p className="text-sm font-medium text-blue-700">오늘 출근</p>
                 <div className="flex items-baseline gap-2 mt-2">
-                  <h3 className="text-4xl font-bold text-blue-900 dark:text-blue-100">{attendance?.present || 0}</h3>
-                  <span className="text-sm text-blue-600 dark:text-blue-400">명</span>
+                  <h3 className="text-4xl font-bold text-blue-900">{attendance?.present || 0}</h3>
+                  <span className="text-sm text-blue-600">명</span>
                 </div>
-                <p className="text-xs text-blue-600/70 dark:text-blue-400/70 mt-2">
+                <p className="text-xs text-blue-600/70 mt-2">
                   전체 {activeWorkers.length}명 중
                 </p>
               </div>
               <div className="p-4 bg-blue-500/20 rounded-2xl">
-                <Users className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                <Users className="h-8 w-8 text-blue-600" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900">
+        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-green-50 to-green-100">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-green-700 dark:text-green-300">진행중 작업</p>
+                <p className="text-sm font-medium text-green-700">진행중 작업</p>
                 <div className="flex items-baseline gap-2 mt-2">
-                  <h3 className="text-4xl font-bold text-green-900 dark:text-green-100">{tasksInProgress.length}</h3>
-                  <span className="text-sm text-green-600 dark:text-green-400">건</span>
+                  <h3 className="text-4xl font-bold text-green-900">{tasksInProgress.length}</h3>
+                  <span className="text-sm text-green-600">건</span>
                 </div>
-                <p className="text-xs text-green-600/70 dark:text-green-400/70 mt-2">
+                <p className="text-xs text-green-600/70 mt-2">
                   완료 {tasksDone.length} / 총 {tasks.length}건
                 </p>
               </div>
               <div className="p-4 bg-green-500/20 rounded-2xl">
-                <CheckSquare className="h-8 w-8 text-green-600 dark:text-green-400" />
+                <CheckSquare className="h-8 w-8 text-green-600" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900">
+        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-orange-50 to-orange-100">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-orange-700 dark:text-orange-300">긴급 업무</p>
+                <p className="text-sm font-medium text-orange-700">긴급 업무</p>
                 <div className="flex items-baseline gap-2 mt-2">
-                  <h3 className="text-4xl font-bold text-orange-900 dark:text-orange-100">{todosHighPriority.length}</h3>
-                  <span className="text-sm text-orange-600 dark:text-orange-400">건</span>
+                  <h3 className="text-4xl font-bold text-orange-900">{todosHighPriority.length}</h3>
+                  <span className="text-sm text-orange-600">건</span>
                 </div>
-                <p className="text-xs text-orange-600/70 dark:text-orange-400/70 mt-2">
+                <p className="text-xs text-orange-600/70 mt-2">
                   높은 우선순위
                 </p>
               </div>
               <div className="p-4 bg-orange-500/20 rounded-2xl">
-                <AlertCircle className="h-8 w-8 text-orange-600 dark:text-orange-400" />
+                <AlertCircle className="h-8 w-8 text-orange-600" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900">
+        <Card className="relative overflow-hidden border-none shadow-lg bg-gradient-to-br from-purple-50 to-purple-100">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-purple-700 dark:text-purple-300">오늘 마감</p>
+                <p className="text-sm font-medium text-purple-700">오늘 마감</p>
                 <div className="flex items-baseline gap-2 mt-2">
-                  <h3 className="text-4xl font-bold text-purple-900 dark:text-purple-100">{todosToday.length}</h3>
-                  <span className="text-sm text-purple-600 dark:text-purple-400">건</span>
+                  <h3 className="text-4xl font-bold text-purple-900">{todosToday.length}</h3>
+                  <span className="text-sm text-purple-600">건</span>
                 </div>
-                <p className="text-xs text-purple-600/70 dark:text-purple-400/70 mt-2">
+                <p className="text-xs text-purple-600/70 mt-2">
                   오늘까지 완료 필요
                 </p>
               </div>
               <div className="p-4 bg-purple-500/20 rounded-2xl">
-                <Clock className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+                <Clock className="h-8 w-8 text-purple-600" />
               </div>
             </div>
           </CardContent>
@@ -169,14 +169,14 @@ export default async function ProjectDashboard({ params }: { params: { projectId
         <div className="grid gap-6 md:grid-cols-2">
           {/* Follow-ups */}
           {followUpLogs.length > 0 && (
-            <Card className="border-orange-200 dark:border-orange-800 shadow-md">
+            <Card className="border-orange-200 shadow-md">
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-orange-100 dark:bg-orange-900 rounded-lg">
-                    <AlertCircle className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+                  <div className="p-2 bg-orange-100 rounded-lg">
+                    <AlertCircle className="h-5 w-5 text-orange-600" />
                   </div>
                   <div>
-                    <CardTitle className="text-orange-600 dark:text-orange-400">팔로우업 필요</CardTitle>
+                    <CardTitle className="text-orange-600">팔로우업 필요</CardTitle>
                     <CardDescription>조치가 필요한 현장일지</CardDescription>
                   </div>
                 </div>
@@ -187,7 +187,7 @@ export default async function ProjectDashboard({ params }: { params: { projectId
                     <Link
                       key={log.id}
                       href={`/p/${params.projectId}/logs`}
-                      className="block p-4 rounded-xl border border-orange-200 dark:border-orange-800 hover:border-orange-300 dark:hover:border-orange-700 hover:shadow-sm transition-all"
+                      className="block p-4 rounded-xl border border-orange-200 hover:border-orange-300 hover:shadow-sm transition-all"
                     >
                       <p className="font-semibold text-sm">{log.title}</p>
                       {log.follow_up_summary && (
@@ -207,14 +207,14 @@ export default async function ProjectDashboard({ params }: { params: { projectId
 
           {/* Today's Todos */}
           {todosToday.length > 0 && (
-            <Card className="border-purple-200 dark:border-purple-800 shadow-md">
+            <Card className="border-purple-200 shadow-md">
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
-                    <Clock className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                  <div className="p-2 bg-purple-100 rounded-lg">
+                    <Clock className="h-5 w-5 text-purple-600" />
                   </div>
                   <div>
-                    <CardTitle className="text-purple-600 dark:text-purple-400">오늘 마감 업무</CardTitle>
+                    <CardTitle className="text-purple-600">오늘 마감 업무</CardTitle>
                     <CardDescription>오늘까지 완료해야 할 항목</CardDescription>
                   </div>
                 </div>
@@ -225,7 +225,7 @@ export default async function ProjectDashboard({ params }: { params: { projectId
                     <Link
                       key={todo.id}
                       href={`/p/${params.projectId}/todos`}
-                      className="flex items-center gap-3 p-4 rounded-xl border border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-700 hover:shadow-sm transition-all"
+                      className="flex items-center gap-3 p-4 rounded-xl border border-purple-200 hover:border-purple-300 hover:shadow-sm transition-all"
                     >
                       <Badge variant={
                         todo.priority === 'high' ? 'destructive' :
